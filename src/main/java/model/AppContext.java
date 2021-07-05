@@ -721,9 +721,9 @@ public class AppContext {
 				int price = Integer.parseInt(lineParts[2]);
 				double amount = Double.parseDouble(lineParts[3]);
 				int indexEnuma = Integer.parseInt(lineParts[6]);
-				int idRestoran = Integer.parseInt(lineParts[7]);
+				//int idRestoran = Integer.parseInt(lineParts[7]);
 				
-				Restorant r = dao.findById(idRestoran);
+				//Restorant r = dao.findById(idRestoran);
 				ArticalType articalT = null;
 				for(ArticalType at : ArticalType.values()) {
 					if(at.ordinal() == indexEnuma) {
@@ -731,8 +731,8 @@ public class AppContext {
 					}
 				}
 				
-				Order order = daoOrd.findById(Integer.parseInt(lineParts[8]));
-				Artical art = new Artical(id , lineParts[1] , price , amount , lineParts[4] , lineParts[5] ,articalT , r,  order);
+				//Order order = daoOrd.findById(Integer.parseInt(lineParts[8]));
+				Artical art = new Artical(id , lineParts[1] , price , amount , lineParts[4] , lineParts[5] ,articalT , null,  null);
 				articals.add(art);
 				
 				

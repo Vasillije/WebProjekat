@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ArticalDao;
+import dao.CommentDao;
 import dao.RestorantDao;
+import model.Entity;
 import model.Restorant;
+import model.Comment;
 
 /**
  * Servlet implementation class RestorantDisplayDetailedServlet
@@ -40,8 +45,26 @@ public class RestorantDisplayDetailedServlet extends HttpServlet {
 		int idRest = Integer.parseInt(id);
 		System.out.println(idRest);
 		RestorantDao dao = new RestorantDao();
+		CommentDao commentDao = new CommentDao();
+		ArticalDao articalDao = new ArticalDao();
 		Restorant restorant = dao.findById(idRest);
+		
+		ArrayList<Entity> comments = commentDao.findByRestrantId(idRest);
+		ArrayList<Entity> articls = articalDao.findArticlsByRestorantId(idRest);
+		double rate = 0;
+		
+		for(Entity e: comments) {
+			 rate += ((Comment)e).getGrade();
+		}
+		if(comments.size() != 0) {
+			rate = rate/comments.size();			
+		}
+		
+		
 		request.setAttribute("restorant", restorant);
+		request.setAttribute("comments", comments);
+		request.setAttribute("articls", articls);
+		request.setAttribute("rate", rate);
 		
 		RequestDispatcher disp = request.getRequestDispatcher("/restorantDisplayDetailed.jsp");
     	disp.forward(request, response);

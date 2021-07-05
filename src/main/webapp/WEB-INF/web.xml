@@ -75,5 +75,15 @@
     <servlet-name>RestorantDisplayDetailedServlet</servlet-name>
     <url-pattern>/RestorantDisplayDetailedServlet</url-pattern>
   </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>CreateArticalServlet</servlet-name>
+    <servlet-class>servlets.CreateArticalServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateArticalServlet</servlet-name>
+    <url-pattern>/CreateArticalServlet</url-pattern>
+  </servlet-mapping>
    
 </web-app>

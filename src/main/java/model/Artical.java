@@ -12,6 +12,10 @@ public class Artical extends Entity{
 	private ArticalType type;
 	private Order order;
 	
+	public Artical(int id) {
+		super(id);
+	}
+	
 
 
 	public Artical(int id,String name , int price , double amount , String opis , String image , ArticalType type , Restorant restorant , Order order) {
@@ -28,7 +32,11 @@ public class Artical extends Entity{
 	
 	@Override
 	public String exportString() {
-		return id  + "|" + name + "|" + price + "|" + amount + "|" + opis + "|" + image  + "|" + type.ordinal() + "|" + restorant.getId() + order.id;
+		String s = id  + "|" + name + "|" + price + "|" + amount + "|" + opis + "|" + image  + "|" + type.ordinal() + "|" ;
+		s += ((restorant == null) ? "" : restorant.getId()) + "|";
+		s += ((order == null) ? "" : order.getId()) + "|";
+				
+		return s;
 	}
 	
 	public Order getOrder() {

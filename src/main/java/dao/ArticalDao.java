@@ -30,5 +30,19 @@ public class ArticalDao extends dao<Artical>{
 		return retVal;
 	}
 	
+	public Entity findByName(String name) {
+		System.out.println("Velicina artikli je " + AppContext.getAplicationContext().getArticals().size());
+		for(Entity e : AppContext.getAplicationContext().getArticals()) {
+			Artical a = (Artical)e;
+			if(a.getName().equals(name)) {
+				return e;
+			}
+		}
+		
+		
+		return null;
+		
+	}
+	
 	
 }

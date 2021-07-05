@@ -10,16 +10,16 @@
 
 
 
-<form action="CreateArticalServlet" method="POST">
+<form action="ArticalUpdateServlet" method="POST">
 <table>
 
 	<tr>
 		<td>Name</td>
-		<td><input type="text" name ="name"/></td>
+		<td><input type="text" placeholder="${requestScope.arical.name}" name ="name"/></td>
 	</tr>
 	<tr>
 		<td>Price</td>
-		<td><input type="text" name ="price"/></td>
+		<td><input type="text" placeholder="${requestScope.arical.price}" name ="price"/></td>
 	</tr>
 	
 	<tr>

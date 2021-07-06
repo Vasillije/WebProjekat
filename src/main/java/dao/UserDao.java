@@ -22,7 +22,7 @@ public class UserDao extends dao<User>{
 	public User findUserByUserPassword(String user , String password) {
 		for(Entity entity : AppContext.getAplicationContext().getUsers()) {
 			User rUser = (User)entity;
-			if(rUser.getUsername() == user && rUser.getPassword() == password) {
+			if(rUser.getUsername().equals(user) && rUser.getPassword().equals(password)) {
 				return rUser;
 			}
 		}

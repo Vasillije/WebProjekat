@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Enums.ArticalType;
 import dao.ArticalDao;
 import model.Artical;
 
@@ -41,6 +42,7 @@ public class ArticalUpdateServlet extends HttpServlet {
 			return;
 		}
 		request.setAttribute("artical", art);
+		request.setAttribute("types", ArticalType.values());
 		
 		RequestDispatcher disp = request.getRequestDispatcher("/articalUpdate.jsp");
     	disp.forward(request, response);
@@ -51,8 +53,19 @@ public class ArticalUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String id = request.getParameter("articalID");
+		int idArt = Integer.parseInt(id);
+		ArticalDao dao = new ArticalDao();
+		Artical artical = dao.findById(idArt);
+		artical.setName(request.getParameter("name"));
+		artical.setPrice(Integer.parseInt(request.getParameter("price")));
+		artical.setImage(request.getParameter("image"));
+		artical.setOpis(request.getParameter("description"));
+		artical.setAmount(Double.parseDouble(request.getParameter("amount")));
+		
+		RequestDispatcher disp = request.getRequestDispatcher("/HomeServlet");
+    	disp.forward(request, response);
+		
 	}
 
 }

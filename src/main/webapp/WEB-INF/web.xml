@@ -85,5 +85,32 @@
     <servlet-name>CreateArticalServlet</servlet-name>
     <url-pattern>/CreateArticalServlet</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>ArticalDisplayServlet</servlet-name>
+    <servlet-class>servlets.ArticalDisplayServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArticalDisplayServlet</servlet-name>
+    <url-pattern>/ArticalDisplayServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>ArticalUpdateServlet</servlet-name>
+    <servlet-class>servlets.ArticalUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArticalUpdateServlet</servlet-name>
+    <url-pattern>/ArticalUpdateServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>UserOrderDisplayServlet</servlet-name>
+    <servlet-class>servlets.UserOrderDisplayServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserOrderDisplayServlet</servlet-name>
+    <url-pattern>/UserOrderDisplayServlet</url-pattern>
+  </servlet-mapping>
    
 </web-app>

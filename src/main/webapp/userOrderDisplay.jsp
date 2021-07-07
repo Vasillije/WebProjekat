@@ -29,11 +29,79 @@
 	</c:forEach>
 </table>
 
+<br>
+SEARCHING BY:
+<br>
+<select name="searchType">
+	  	<option value="restName">Restorant Name</option>
+	  	<option value="orderPrice"> Order Price </option>
+ 		<option value="orderDate"> order Date</option>	  		
+</select>
+<br>
+
+<input type="text" name ="searchValueFrom"/>
+<input type="text" name ="searchValueTo"/>
+<br>
 
 <br>
-<input type="submit" value="Search">
+<br>
+
+Sortiranje---------------------------> izaberi kriterijum
+
+<br>
+<select name="sortingCrit">
+		<option value="noSort">no Sort</option>
+	  	<option value="restName">Restorant Name</option>
+ 		<option value="orderPrice"> Order Price</option>
+ 		<option value="restDate"> Restorant Date </option>	  		
+</select>
+
+<br>
+<br>
+ORDER???
+<br>
+<select name="sortingOrder">
+	  	<option value="growing">growing</option>
+ 		<option value="descending"> descending</option>  		
+</select>
+<br>
+<br>
+
+FILTERING Restorant TYPE
+<select name="filteringType">
+		<option value="noFilter">no Filter</option>
+	  	<c:forEach items="${requestScope.types}" var="type">
+		<option value= "${type}"> ${type} </option>
+		
+	</c:forEach> 		
+</select>
+
+<br>
+<br>
+
+Order STATUS
+<select name="filteringOpen">
+		<option value="noFilter">no Filter</option>
+		<c:forEach items="${requestScope.status}" var="status">
+		<option value= "${status}"> ${status} </option>
+		
+		</c:forEach> 
+	  	 		
+</select>
+<br>
+
+
+
+
+
+
+
+
 
 </form>
+	<% if (request.getAttribute("error") != null) { %>
+		<p style="color: red"><%=request.getAttribute("error")%></p>
+	<% } %>
 treba da se ubaci samo nedostavljene porudzbine
 </body>
 </html>

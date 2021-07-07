@@ -7,9 +7,10 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
-
 <body>
-<form action="ShipperOrderDisplayServlet" method="POST">
+
+
+<form action="UserOrderDisplayServlet" method="POST">
 <table>
 	<tr>
 		<td>OrderNumber</td>
@@ -35,11 +36,11 @@
 
 
 
+
 <br>
 SEARCHING BY:
 <br>
 <select name="searchType">
-	  	<option value="restName">Restorant Name</option>
 	  	<option value="orderPrice"> Order Price </option>
  		<option value="orderDate"> order Date</option>	  		
 </select>
@@ -57,7 +58,6 @@ Sortiranje---------------------------> izaberi kriterijum
 <br>
 <select name="sortingCrit">
 		<option value="noSort">no Sort</option>
-	  	<option value="restName">Restorant Name</option>
  		<option value="orderPrice"> Order Price</option>
  		<option value="restDate"> Restorant Date </option>	  		
 </select>
@@ -72,39 +72,28 @@ ORDER???
 </select>
 <br>
 <br>
-
-FILTERING Restorant TYPE
-<select name="filteringType">
-		<option value="noFilter">no Filter</option>
-	  	<c:forEach items="${requestScope.types}" var="type">
-		<option value= "${type}"> ${type} </option>
-		
-	</c:forEach> 		
-</select>
-
-<br>
 <br>
 
 Order STATUS
 <select name="filteringOpen">
 		<option value="noFilter">no Filter</option>
 		<c:forEach items="${requestScope.status}" var="status">
-		<option value= "${status}"> ${status} </option>
-		
+			<option value= "${status}"> ${status} </option>
 		</c:forEach> 
 	  	 		
 </select>
 <br>
 
 
-
-
-
 </form>
+treba da se ubaci samo nedostavljene porudzbine
+
 
 	<% if (request.getAttribute("error") != null) { %>
 		<p style="color: red"><%=request.getAttribute("error")%></p>
 	<% } %>
-treba da se ubaci samo nedostavljene porudzbine
+
+
+
 </body>
 </html>

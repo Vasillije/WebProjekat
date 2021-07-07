@@ -112,5 +112,23 @@
     <servlet-name>UserOrderDisplayServlet</servlet-name>
     <url-pattern>/UserOrderDisplayServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ShipperOrderDisplayServlet</servlet-name>
+    <servlet-class>servlets.ShipperOrderDisplayServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShipperOrderDisplayServlet</servlet-name>
+    <url-pattern>/ShipperOrderDisplayServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ManagerOrderDisplayServlet</servlet-name>
+    <servlet-class>servlets.ManagerOrderDisplayServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManagerOrderDisplayServlet</servlet-name>
+    <url-pattern>/ManagerOrderDisplayServlet</url-pattern>
+  </servlet-mapping>
    
 </web-app>

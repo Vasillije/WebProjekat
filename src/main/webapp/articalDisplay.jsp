@@ -19,7 +19,7 @@
 	<c:forEach items="${requestScope.articls}" var="artical">
 	<tr>
 		<td> <%=i %></td>
-		<td><a href="/ArticalUpdateServlet?id=${artical.id}">${artical.name}</a></td>
+		<td><a href="ArticalUpdateServlet?id=${artical.id}">${artical.name}</a></td>
 	 	<%i++; %>
 		
 	</tr>

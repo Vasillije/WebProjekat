@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Enums.OrderStatus;
-
 public class Order extends Entity{
 
 	private ArrayList<Artical> aritcls;
@@ -15,10 +13,8 @@ public class Order extends Entity{
 	private LocalDate date;
 	private User user;
 	private int brListe;		//lista kojoj pripada u USER 
-	private OrderStatus status;
 	
-
-	
+//  STATUS ENUM ZA PORUDYBINU U KOJEM JE STANJU fali
 	
 	
 	public Order(int id , ArrayList<Artical> articls , Restorant restorant , double cena , String buyer , LocalDate date , User user , int brListe) {
@@ -47,14 +43,8 @@ public class Order extends Entity{
 		String s = "" + id + "|";
 		s += restorant.getId() + "|" + cena + "|" + buyer + "|" ;
 		s += DateConverse.convertLocalDateToString(date);
-		s += "|" + user.id + "|" + brListe ;
+		s += "|" + user.id + "|" + brListe;
 		return s;
-	}
-	public OrderStatus getStatus() {
-		return status;
-	}
-	public void setStatus(OrderStatus status) {
-		this.status = status;
 	}
 	public ArrayList<Artical> getAritcls() {
 		return aritcls;

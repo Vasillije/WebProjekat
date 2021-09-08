@@ -2,10 +2,41 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<style type="text/css">
+body
+{
+background-color: Bisque;
+ background-image: url('image/meni.jpg');
+ background-repeat : no-repeat;
+ background-size: 100% 100%;
+ background-attachment: fixed;
+
+}
+
+table
+{
+color: white;
+}
+
+span
+{
+	color:white;
+	font-size:40px;
+}
+div
+{
+background : black;
+height : 50px;
+}
+</style>
+
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<div>
+<span>expressdostava.com</span>
+</div>
 <body>
 
 

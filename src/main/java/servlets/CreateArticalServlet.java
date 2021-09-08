@@ -36,9 +36,6 @@ public class CreateArticalServlet extends HttpServlet {
         
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher disp = request.getRequestDispatcher("/createArtical.jsp");
@@ -46,9 +43,6 @@ public class CreateArticalServlet extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		ArticalDao articalDao = new ArticalDao();

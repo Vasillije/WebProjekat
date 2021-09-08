@@ -1,7 +1,32 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <html>
+<style type="text/css">
+body
+{
+background-color: Bisque;
+ background-image: url('image/gradjevina.jpg');
+ background-repeat : no-repeat;
+ background-size: 100% 100%;
+ background-attachment: fixed;
+
+}
+span
+{
+	color:white;
+	font-size:40px;
+}
+div
+{
+background : black;
+height : 50px;
+}
+
+</style>
 <head>
 </head>
+<div>
+<span>expressdostava.com</span>
+</div>
 <body>
 <form action="RegistrationMenagerServlet" method="POST">
 <input type="hidden" name="restID" value="${requestScope.restID}">

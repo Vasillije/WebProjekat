@@ -4,10 +4,32 @@
     
 <!DOCTYPE html>
 <html>
+<style type="text/css">
+body
+{
+background-color: Bisque;
+
+}
+
+span
+{
+	color:white;
+	font-size:40px;
+}
+div
+{
+background : black;
+height : 50px;
+}
+
+</style>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<div>
+<span>expressdostava.com</span>
+</div>
 <body>
 
 <table>
@@ -56,6 +78,15 @@ ${requestScope.rate}
 RESTORANT Articls:
 <% i = 0; %>
 <table>
+<tr>
+		<td> index</td>
+		<td>Ime</td>
+		<td>Opis</td>
+		<td>Price</td>
+		<td>Slika</td>
+		<td> Dodaj </td>
+		<td> </td>
+		</tr>
 <c:forEach items="${requestScope.articls}" var="articl">
 	<tr>
 		<td> <%=i %></td>
@@ -63,6 +94,13 @@ RESTORANT Articls:
 		<td>${articl.opis}</td>
 		<td>${articl.price}</td>
 		<td>${articl.image}</td>
+		<!-- <td><a href="AddArticalToBasket?idArtical=${articl.id}&nesto=0">Dodaj</a></td> -->
+		
+		<form action="AddArticalToBasket" method="GET"> 
+			<input type="hidden" name="idArtical" value="${articl.id}">
+			<td> <input type="number" name="amountOfArtical" min="1" max="1000"> </td>
+			<td> <button type="submit">Add</button> </td>
+		</form>
 	 	<%i++; %>
 		
 	</tr>
@@ -70,10 +108,13 @@ RESTORANT Articls:
 
 </table>
 
-
-
+<br>
+<br>
+<br>
+<a href="BasketServlet">KORPA</a>
 
 <br>
+
 
 </body>
 </html>

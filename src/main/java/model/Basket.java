@@ -6,18 +6,20 @@ public class Basket extends Entity{
 	private HashMap<Integer , Double> boughtArticls;
 	private User user;
 	private double price;
+	private Restorant restorant;
 	
 	public Basket(int id){
 		super(id);
 	}
 	
-	public Basket(int id,HashMap<Integer , Double> map , User user , double price) {
+	public Basket(int id,HashMap<Integer , Double> map , User user , double price, Restorant restorant) {
 		super(id);
 		this.price = price;
 		this.user = user;
 		this.boughtArticls = map;
 	}
 	
+
 	@Override
 	public String exportString() {
 		String s = "" + id + ";";
@@ -28,7 +30,8 @@ public class Basket extends Entity{
 		}
 		
 		//s += user.getId() + "|" + price;
-		s += price;
+		s += price + ";";
+		s += restorant.getId();
 		
 		return s;
 	}
@@ -52,6 +55,15 @@ public class Basket extends Entity{
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
+	public Restorant getRestorant() {
+		return restorant;
+	}
+	
+	public void setRestorant(Restorant restorant) {
+		this.restorant = restorant;
+	}
+	
 	
 	
 }

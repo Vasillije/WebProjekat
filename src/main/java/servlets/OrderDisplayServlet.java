@@ -15,21 +15,20 @@ import Enums.OrderStatus;
 import Enums.RestorantType;
 import Enums.Role;
 import dao.OrderDao;
+import dao.RestorantDao;
+import model.AppContext;
 import model.Entity;
 import model.Order;
 import model.Restorant;
 import model.User;
 
-/**
- * Servlet implementation class OrderDisplayServlet
- */
-@WebServlet("/OrderDisplayServlet")
+
+@WebServlet("/orderDisplay")
 public class OrderDisplayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
     public OrderDisplayServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	
@@ -44,8 +43,13 @@ public class OrderDisplayServlet extends HttpServlet {
         	disp.forward(request, response);
         	return;
 		}else if(user.getRole() == Role.CUSTOMER) {
-			request.setAttribute("orders", user.getOrdersCustomer());	
-			 disp = request.getRequestDispatcher("/userOrderDisplay.jsp");
+			System.out.println(user.exportString());
+			OrderDao orderDao = new OrderDao();
+			request.setAttribute("orders", orderDao.findOrderByUserCustomerId(user.getId()));	
+			request.setAttribute("types", RestorantType.values());
+			request.setAttribute("status", OrderStatus.values());
+			disp = request.getRequestDispatcher("/userOrderDisplay.jsp");
+			disp.forward(request, response);
 		}else if(user.getRole() == Role.SHIPPER) {		
 			ArrayList<Entity> ordersWaiting = new ArrayList<Entity>();
 			if(user.getOrdersShipper() == null) {
@@ -54,11 +58,8 @@ public class OrderDisplayServlet extends HttpServlet {
 	        	disp.forward(request, response);
 	        	return;
 			}
-			for(Entity ent: user.getOrdersShipper()) {
-				if(((Order)ent).getStatus() == OrderStatus.WAITING) {
-					ordersWaiting.add(ent);
-				}
-			}
+			
+			ordersWaiting = dao.selectWaitingOrder(user.getOrdersShipper());
 			
 			request.setAttribute("orders", ordersWaiting);
 			request.setAttribute("types", RestorantType.values());
@@ -79,16 +80,42 @@ public class OrderDisplayServlet extends HttpServlet {
 			request.setAttribute("status", OrderStatus.values());
 			 disp = request.getRequestDispatcher("/managerOrderDisplay.jsp");
 	    	disp.forward(request, response);
+		}else {
+			disp = request.getRequestDispatcher("/index.jsp");
+			disp.forward(request, response);			
 		}
-		request.setAttribute("types", RestorantType.values());
-		request.setAttribute("status", OrderStatus.values());
-		disp.forward(request, response);
-		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String searchingBy = request.getParameter("searchType");
+		OrderDao dao = new OrderDao();
 		
+		String searchValueFrom = request.getParameter("searchValueFrom").toLowerCase();
+		String searchValueTo = request.getParameter("searchValueTo").toLowerCase();
+		
+		ArrayList<Entity> allOrders = AppContext.getAplicationContext().getOrders();
+		ArrayList<Entity> validOrders = dao.searchByParam(allOrders, searchingBy, searchValueFrom, searchValueTo);
+		
+		String sortingCrit = request.getParameter("sortingCrit");
+		String sortingOrder = request.getParameter("sortingOrder");
+		String filteringType = request.getParameter("filteringRestorantType");
+		String filteringStatus = request.getParameter("filteringOrderStatus");
+		
+		if(!filteringType.equals("noFilter")) {
+			dao.restorantTypeFilter(validOrders, filteringType);
+		}
+		
+		if(!filteringStatus.equals("noFilter")) {
+			dao.orderStatusFilter(allOrders, filteringStatus);
+		}
+				
+		if(!sortingCrit.equals("noSort")) {
+			dao.sortByParam(validOrders, sortingCrit, sortingOrder);
+		}
+		request.setAttribute("orders", validOrders);
+		RequestDispatcher disp = request.getRequestDispatcher("/sortedOrderDisplayGoodProgram.jsp");
+    	disp.forward(request, response);
 	}
 
 }

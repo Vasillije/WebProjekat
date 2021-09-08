@@ -15,11 +15,7 @@ import javax.servlet.http.HttpSession;
 import dao.UserDao;
 import model.User;
 
-/***
- * Servlet zadužen za login. Èita podatke o korisniku iz zahteva i dodaje ga u sesiju ako su kredencijali ispravni.
- * @author Lazar
- *
- */
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,19 +28,13 @@ public class LoginServlet extends HttpServlet {
     public void init() throws ServletException {
     	super.init();
     }
-    /***
-     * Preusmerava korisnika na login stranicu.
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
+    	RequestDispatcher disp = request.getRequestDispatcher("/homepage.jsp");
+    	request.setAttribute("imagePath", request.getContextPath() + "/" + "RedDot_Burger.jpg");
+
     	disp.forward(request, response);
     }
-    
-    /***
-     * Prihvata korisnièko ime i lozinku iz forme i pokušava da uloguje korisnika. 
-     * Pri neuspešnom loginu preusmerava korisnika nazad na login stranicu, sa porukom greške.
-     */
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String username = request.getParameter("username");
@@ -54,7 +44,7 @@ public class LoginServlet extends HttpServlet {
     	User user = userDao.findUserByUserPassword(username, pass);
     	if(user == null) {	
     		request.setAttribute("error", "Username and password are not OK");
-    		RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
+    		RequestDispatcher disp = request.getRequestDispatcher("/homepage.jsp");
         	disp.forward(request, response);
         	return;
     	}
@@ -63,7 +53,7 @@ public class LoginServlet extends HttpServlet {
         
        // User u = (User)session.getAttribute("user"); // ovako uzimamo trenuntnog usera sa sesije
         
-        RequestDispatcher disp = request.getRequestDispatcher("/HomeServlet");
+        RequestDispatcher disp = request.getRequestDispatcher("/home");
     	disp.forward(request, response);
     	
 	}

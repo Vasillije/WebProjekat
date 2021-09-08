@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Enums.OrderStatus;
+import Enums.RestorantType;
 import model.Entity;
 import model.User;
 import model.Order;
@@ -22,20 +23,28 @@ import model.Order;
 @WebServlet("/shipperOrderDisplay")
 public class ShipperOrderDisplayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public ShipperOrderDisplayServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
+		if(user == null) {
+			request.setAttribute("error", "SESSION EXPIRED SSS");
+    		RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
+        	disp.forward(request, response);
+        	return;
+		}
+		
 		ArrayList<Entity> ordersWaiting = new ArrayList<Entity>();
+		if(user.getOrdersShipper() == null) {
+			request.setAttribute("error", "User has no orders");
+    		RequestDispatcher disp = request.getRequestDispatcher("/shipperOrderDisplay.jsp");
+        	disp.forward(request, response);
+        	return;
+		}
 		for(Entity ent: user.getOrdersShipper()) {
 			if(((Order)ent).getStatus() == OrderStatus.WAITING) {
 				ordersWaiting.add(ent);
@@ -43,17 +52,14 @@ public class ShipperOrderDisplayServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("orders", ordersWaiting);
+		request.setAttribute("types", RestorantType.values());
+		request.setAttribute("status", OrderStatus.values());
 		RequestDispatcher disp = request.getRequestDispatcher("/shipperOrderDisplay.jsp");
     	disp.forward(request, response);
-    	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }

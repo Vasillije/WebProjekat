@@ -8,37 +8,43 @@ import Enums.OrderStatus;
 
 public class Order extends Entity{
 
-	private ArrayList<Artical> aritcls;
+	//private ArrayList<Artical> aritcls;
 	private Restorant restorant;
 	private double cena;
 	private String buyer;
 	private LocalDate date;
-	private User user;
-	private int brListe;		//lista kojoj pripada u USER 
+	private User userCustomer;
+	private User userShipper;
+	private int brListe;		
 	private OrderStatus status;
 	
 
 	
 	
 	
-	public Order(int id , ArrayList<Artical> articls , Restorant restorant , double cena , String buyer , LocalDate date , User user , int brListe) {
+	public Order(int id , ArrayList<Artical> articls , Restorant restorant , double cena , String buyer , LocalDate date , User userCustomer ,User userShipper,
+			int brListe, OrderStatus status) {
 		super(id);
-		this.aritcls = articls;
+		//this.aritcls = articls;
 		this.restorant = restorant;
 		this.cena = cena;
 		this.buyer = buyer;
 		this.date = date;
-		this.user = user;
+		this.userCustomer = userCustomer;
+		this.userShipper = userShipper;
 		this.brListe = brListe;
+		this.status = status;
 		
 	}
-	public Order(int id ,  Restorant restorant , double cena , String buyer , LocalDate date , User user , int brListe) {
+	public Order(int id ,  Restorant restorant , double cena , String buyer , LocalDate date ,  User userCustomer ,User userShipper, int brListe,OrderStatus status) {
 		super(id);
+		this.status = status;
 		this.restorant = restorant;
 		this.cena = cena;
 		this.buyer = buyer;
 		this.date = date;
-		this.user = user;
+		this.userCustomer = userCustomer;
+		this.userShipper = userShipper;
 		this.brListe = brListe;
 	}
 
@@ -47,7 +53,9 @@ public class Order extends Entity{
 		String s = "" + id + "|";
 		s += restorant.getId() + "|" + cena + "|" + buyer + "|" ;
 		s += DateConverse.convertLocalDateToString(date);
-		s += "|" + user.id + "|" + brListe ;
+		s += "|" + userCustomer.getId() + "|";
+		s += (userShipper == null) ? "" : userShipper.getId()  ;
+		s += "|" + brListe + "|" + status.ordinal();
 		return s;
 	}
 	public OrderStatus getStatus() {
@@ -56,22 +64,19 @@ public class Order extends Entity{
 	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
-	public ArrayList<Artical> getAritcls() {
-		return aritcls;
-	}
 
-	public void setAritcls(ArrayList<Artical> aritcls) {
-		this.aritcls = aritcls;
+	public User getUserCustomer() {
+		return userCustomer;
 	}
-
-	public User getUser() {
-		return user;
+	public void setUserCustomer(User userCustomer) {
+		this.userCustomer = userCustomer;
 	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public User getUserShipper() {
+		return userShipper;
 	}
-
+	public void setUserShipper(User userShipper) {
+		this.userShipper = userShipper;
+	}
 	public int getBrListe() {
 		return brListe;
 	}

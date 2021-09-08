@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import Enums.ArticalType;
+import Enums.OrderStatus;
 import Enums.Pol;
 import Enums.RestorantStatus;
 import Enums.RestorantType;
@@ -37,6 +38,9 @@ public class AppContext {
 	private ArrayList<Entity> orders = new ArrayList<Entity>();
 	private ArrayList<Entity> restorants = new ArrayList<Entity>();
 	private ArrayList<Entity> users = new ArrayList<Entity>();
+	private ArrayList<Entity> orderArticls = new ArrayList<Entity>();
+
+
 	private String path = "C:\\VebBobBaza\\";
 	private static AppContext aplicationContext;
 	
@@ -113,6 +117,14 @@ public class AppContext {
 
 	public void setUsers(ArrayList<Entity> users) {
 		this.users = users;
+	}
+	
+	public ArrayList<Entity> getOrderArticls() {
+		return orderArticls;
+	}
+
+	public void setOrderArticls(ArrayList<Entity> orderArticls) {
+		this.orderArticls = orderArticls;
 	}
 
 
@@ -364,6 +376,34 @@ public class AppContext {
 			e.printStackTrace();
 		}
 	}
+	
+	public void saveOrderArticls() {
+		if(orderArticls == null) {
+			return;
+		}
+		
+		
+		FileWriter fw;
+		BufferedWriter writer;
+		try {
+			fw = new FileWriter(path + "orderArticls.txt");
+			
+			
+			
+			writer = new BufferedWriter(fw);
+			
+			for(Entity e : orderArticls) {
+				writer.write(e.exportString());
+				writer.newLine();
+			}
+			
+			writer.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	
 	
@@ -380,7 +420,7 @@ public class AppContext {
 		saveRestorants();
 		saveUsers();
 		saveLocations();
-		
+		saveOrderArticls();
 	}
 	
 	public void load() {
@@ -393,6 +433,34 @@ public class AppContext {
 		loadComments();
 		loadOrders();
 		loadArticals();
+	}
+	
+	public void loadOrderArticls() {
+		String line;
+		OrderDao orderDao = new OrderDao();
+		ArticalDao articalDao = new ArticalDao();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(path + "orderArticls.txt"));
+			
+			
+			while((line = br.readLine()) != null) {		//id + "|" + street + "|" + number + "|" + place + "|" + zipCode ;
+				String[] lineParts = line.split("\\|");
+				int id = Integer.parseInt(lineParts[0]);
+				int orderId = Integer.parseInt(lineParts[1]);
+				int articalId = Integer.parseInt(lineParts[2]);
+				double amount = Double.parseDouble(lineParts[3]);
+				OrderArtical orderArtical = new OrderArtical(id, orderDao.findById(orderId), articalDao.findById(articalId), amount);
+				orderArticls.add(orderArtical);
+				
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void loadAdresses() {
@@ -524,7 +592,7 @@ public class AppContext {
 	
 	public void loadBaskets() {
 		String line;
-		
+		RestorantDao dao = new RestorantDao();
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(path + "baskets.txt"));
@@ -533,20 +601,22 @@ public class AppContext {
 				String[] lineParts = line.split("\\;");
 				int id = Integer.parseInt(lineParts[0]);
 				HashMap<Integer , Double> boughtArticls = new HashMap<Integer , Double>();
-				for(int i=1;i<lineParts.length - 1;i++) {
+				for(int i=1;i<lineParts.length - 2;i++) {
 					String subLineP[] = lineParts[i].split("\\,");
 					int idArtikal = Integer.parseInt(subLineP[0]);
 					double d = Double.parseDouble(subLineP[1]);
 					boughtArticls.put(idArtikal ,  d);
 					
 				}
-				String restS = lineParts[lineParts.length - 1];
+				String restS = lineParts[lineParts.length - 2];
+				int restId = Integer.parseInt(lineParts[lineParts.length - 1]);
+				Restorant rest = dao.findById(restId);
 				//String[] rest = restS.split("|");
 				//int idRestorant = Integer.parseInt(rest[0]);
 				double price = Double.parseDouble(restS);
 				
 				//orders.add(new Order(aritcls , resorant , price , rest[2] , ldate));
-				this.baskets.add(new Basket(id ,boughtArticls , null , price ));
+				this.baskets.add(new Basket(id ,boughtArticls , null , price, rest ));
 				
 				
 			}
@@ -683,13 +753,24 @@ public class AppContext {
 				double price = Double.parseDouble(lineParts[2]);
 				String buyer = lineParts[3];
 				LocalDate ldate= DateConverse.convertStringToLocalDate(lineParts[4]);
-				int idUser = Integer.parseInt(lineParts[5]);
-				int brListe  = Integer.parseInt(lineParts[6]);
+				int userCustomerId = Integer.parseInt(lineParts[5]);
+				int userShipperId = -1;
+				if(!lineParts[6].equals("")) {
+					userShipperId = Integer.parseInt(lineParts[6]);
+				}
+				int brListe  = Integer.parseInt(lineParts[7]);
+				int statusOrdinal = Integer.parseInt(lineParts[8]);
 				
-				User user = daoUser.findById(idUser);
+				OrderStatus[] statusi = OrderStatus.values();
+				OrderStatus izFajla = statusi[statusOrdinal];
+				
+				User userCustomer = daoUser.findById(userCustomerId);
+				User userShipper = daoUser.findById(userShipperId);
+				
+				
 				Restorant restorant = daoRest.findById(idRestorant);
 				
-				Order ord = new Order(id , restorant , price , buyer , ldate , user , brListe);
+				Order ord = new Order(id , restorant , price , buyer , ldate ,userCustomer, userShipper, brListe, izFajla);
 				
 				orders.add(ord);
 				
@@ -721,9 +802,9 @@ public class AppContext {
 				int price = Integer.parseInt(lineParts[2]);
 				double amount = Double.parseDouble(lineParts[3]);
 				int indexEnuma = Integer.parseInt(lineParts[6]);
-				//int idRestoran = Integer.parseInt(lineParts[7]);
+				int idRestoran = Integer.parseInt(lineParts[7]);
 				
-				//Restorant r = dao.findById(idRestoran);
+				Restorant r = dao.findById(idRestoran);
 				ArticalType articalT = null;
 				for(ArticalType at : ArticalType.values()) {
 					if(at.ordinal() == indexEnuma) {
@@ -732,7 +813,7 @@ public class AppContext {
 				}
 				
 				//Order order = daoOrd.findById(Integer.parseInt(lineParts[8]));
-				Artical art = new Artical(id , lineParts[1] , price , amount , lineParts[4] , lineParts[5] ,articalT , null,  null);
+				Artical art = new Artical(id , lineParts[1] , price , amount , lineParts[4] , lineParts[5] ,articalT , r,  null);
 				articals.add(art);
 				
 				

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Enums.Pol;
+import Enums.Role;
 import dao.UserDao;
 import model.AppContext;
 import model.DateConverse;
@@ -36,9 +37,6 @@ public class RegistrationServlet extends HttpServlet{
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	
-    	
     	RequestDispatcher disp = request.getRequestDispatcher("/registration.jsp");
     	disp.forward(request, response);
     }
@@ -70,6 +68,7 @@ public class RegistrationServlet extends HttpServlet{
     	user.setName(name);
     	user.setSurname(surname);
     	user.setSex(sex == "MALE" ? Pol.MALE : Pol.FEMALE);
+    	user.setRole(Role.CUSTOMER);
     	
     	LocalDate dateLD = DateConverse.convertStringToLocalDate(dateS);
     	user.setBirdth(dateLD);

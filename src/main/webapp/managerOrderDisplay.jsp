@@ -3,19 +3,40 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+<style type="text/css">
+body
+{
+background-color: Bisque;
+
+}
+span
+{
+	color:white;
+	font-size:40px;
+}
+div
+{
+background : black;
+height : 50px;
+}
+
+</style>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<div>
+<span>expressdostava.com</span>
+</div>
 <body>
-
-
+<h1> Manager </h1>
 <form action="UserOrderDisplayServlet" method="POST">
 <table>
 	<tr>
 		<td>OrderNumber</td>
 		<td>RestorantName</td>
-		<td>Restorant OPEN???</td>
+		<td>Restorant Cena</td>
+		<td> Order Date</td>
 	</tr>
 	<%int i = 1; %>
 	<c:forEach items="${requestScope.orders}" var="order">
@@ -23,7 +44,8 @@
 		<td> <%=i %></td>
 		<td>${order.restorant.name}</td>
 		
-		<td>${restorant.status}</td>
+		<td>${order.cena}</td>
+		<td>${order.date}</td>
 	 	<%i++; %>
 		
 	</tr>

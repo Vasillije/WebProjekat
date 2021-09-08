@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Enums.Role;
 import dao.ArticalDao;
 import model.Restorant;
 import model.User;
@@ -29,14 +30,16 @@ public class ArticalDisplayServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArticalDao dao = new ArticalDao();
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		Restorant rest = user.getRestorantMnagaer();
+		
+		if(user.getRole() != Role.MANAGER) {
+			System.out.println("nije manager");
+			return;	
+		}
 		if(rest == null) {
 			System.out.println("prazan restoran jer nije popunjeno jer nije gotovo to jos do sad al bice uskoro");
 			return;

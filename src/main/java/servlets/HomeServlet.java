@@ -31,8 +31,6 @@ public class HomeServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-   		//request.setAttribute("error", "Username and password are not OK");
    		RequestDispatcher disp = request.getRequestDispatcher("/index.jsp");
        	disp.forward(request, response);
        	

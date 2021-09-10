@@ -81,7 +81,7 @@ public class RegistrationServlet extends HttpServlet{
         
        // User u = (User)session.getAttribute("user"); // ovako uzimamo trenuntnog usera sa sesije
         
-        RequestDispatcher disp = request.getRequestDispatcher("/HomeServlet");
+        RequestDispatcher disp = request.getRequestDispatcher("/index.jsp");
     	disp.forward(request, response);
 	}
 }

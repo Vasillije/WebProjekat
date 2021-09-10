@@ -88,7 +88,9 @@ public class BasketServlet extends HttpServlet {
 		String userName ;
 		if(user == null) {
 			userName = "";
-			System.out.println("asdasdasd");
+			RequestDispatcher disp = request.getRequestDispatcher("/index.jsp");
+	    	disp.forward(request, response);
+	    	return;
 		}else {
 			userName = user.getName() + " " + user.getSurname();
 		}
@@ -99,7 +101,7 @@ public class BasketServlet extends HttpServlet {
 			return ;
 		}
 		Order order = new Order(id, basket.getRestorant(), basket.getPrice(), userName, dateNow, user, null, 1000, OrderStatus.PROCESSING);
-		
+		user.setPointsCustomer((int)(user.getPointsCustomer() + order.getCena()/1000*133));
 		AppContext.getAplicationContext().getOrders().add(order);
 		
 		ArticalDao articalDao = new ArticalDao();

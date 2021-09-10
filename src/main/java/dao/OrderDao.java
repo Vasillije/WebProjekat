@@ -35,8 +35,8 @@ public class OrderDao extends dao<Order>{
 		}
 		return orders;
 	}
-	public ArrayList<Entity> selectWaitingOrder(ArrayList<Order> orders){
-		ArrayList<Entity> waitingOrders = new ArrayList<Entity>();
+	public ArrayList<Order> selectWaitingOrder(ArrayList<Order> orders){
+		ArrayList<Order> waitingOrders = new ArrayList<Order>();
 		for(Order entity : orders) {
 			if((entity).getStatus() == OrderStatus.WAITING ) {
 				waitingOrders.add(entity);
@@ -55,11 +55,11 @@ public class OrderDao extends dao<Order>{
 		return orders;
 	}
 	
-	public ArrayList<Entity> findOrderByUserShipperId(int id){
-		ArrayList<Entity> orders = new ArrayList<Entity>();
+	public ArrayList<Order> findOrderByUserShipperId(int id){
+		ArrayList<Order> orders = new ArrayList<Order>();
 		for(Entity entity : AppContext.getAplicationContext().getOrders()) {
 			if(((Order)entity).getUserShipper().getId() == id) {
-				orders.add(entity);
+				orders.add((Order)entity);
 			}
 		}
 		return orders;

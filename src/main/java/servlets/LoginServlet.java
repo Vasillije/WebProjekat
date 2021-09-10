@@ -30,9 +30,7 @@ public class LoginServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	RequestDispatcher disp = request.getRequestDispatcher("/homepage.jsp");
-    	request.setAttribute("imagePath", request.getContextPath() + "/" + "RedDot_Burger.jpg");
-
+    	RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
     	disp.forward(request, response);
     }
     @Override
@@ -44,7 +42,7 @@ public class LoginServlet extends HttpServlet {
     	User user = userDao.findUserByUserPassword(username, pass);
     	if(user == null) {	
     		request.setAttribute("error", "Username and password are not OK");
-    		RequestDispatcher disp = request.getRequestDispatcher("/homepage.jsp");
+    		RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
         	disp.forward(request, response);
         	return;
     	}
@@ -53,7 +51,7 @@ public class LoginServlet extends HttpServlet {
         
        // User u = (User)session.getAttribute("user"); // ovako uzimamo trenuntnog usera sa sesije
         
-        RequestDispatcher disp = request.getRequestDispatcher("/home");
+        RequestDispatcher disp = request.getRequestDispatcher("/index.jsp");
     	disp.forward(request, response);
     	
 	}

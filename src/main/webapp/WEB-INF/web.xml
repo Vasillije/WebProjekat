@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://JAVA.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>VebPocetak</display-name>
+  
+  
   <welcome-file-list>
-  	<welcome-file>LoginServlet</welcome-file>
+  	<welcome-file>HomeServlet</welcome-file>
   </welcome-file-list>
+  
+  
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>servlets.LoginServlet</servlet-class>
@@ -104,32 +108,9 @@
     <url-pattern>/ArticalUpdateServlet</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-    <servlet-name>UserOrderDisplayServlet</servlet-name>
-    <servlet-class>servlets.UserOrderDisplayServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UserOrderDisplayServlet</servlet-name>
-    <url-pattern>/UserOrderDisplayServlet</url-pattern>
-  </servlet-mapping>
   
-  <servlet>
-    <servlet-name>ShipperOrderDisplayServlet</servlet-name>
-    <servlet-class>servlets.ShipperOrderDisplayServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ShipperOrderDisplayServlet</servlet-name>
-    <url-pattern>/ShipperOrderDisplayServlet</url-pattern>
-  </servlet-mapping>
   
-  <servlet>
-    <servlet-name>ManagerOrderDisplayServlet</servlet-name>
-    <servlet-class>servlets.ManagerOrderDisplayServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ManagerOrderDisplayServlet</servlet-name>
-    <url-pattern>/ManagerOrderDisplayServlet</url-pattern>
-  </servlet-mapping>
+
   
    <servlet>
     <servlet-name>OrderDisplayServlet</servlet-name>
@@ -177,7 +158,14 @@
     <url-pattern>/BasketDeleteServlet</url-pattern>
   </servlet-mapping>
   
-
+	<servlet>
+    <servlet-name>OrderChangeByAnybodyGoodProjectServlet</servlet-name>
+    <servlet-class>servlets.OrderChangeByAnybodyGoodProjectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderChangeByAnybodyGoodProjectServlet</servlet-name>
+    <url-pattern>/OrderChangeByAnybodyGoodProjectServlet</url-pattern>
+  </servlet-mapping>
   
    
 </web-app>

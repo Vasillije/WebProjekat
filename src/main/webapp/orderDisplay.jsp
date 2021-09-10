@@ -23,7 +23,7 @@ height : 50px;
 </style>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>OrderDisplay</title>
 </head>
 <div>
 <span>expressdostava.com</span>
@@ -37,6 +37,8 @@ height : 50px;
 		<td>RestorantName</td>
 		<td>Restorant Cena</td>
 		<td> Order Date</td>
+		<td> Order Status</td>
+		<td> Order Change</td>
 	</tr>
 	<%int i = 1; %>
 	<c:forEach items="${requestScope.orders}" var="order">
@@ -46,6 +48,8 @@ height : 50px;
 		
 		<td>${order.cena}</td>
 		<td>${order.date}</td>
+		<td>${order.status}</td>
+		<td><a href="OrderChangeByAnybodyGoodProjectServlet?orderId=${order.id}">Cancel Order javascript</a></td>	
 	 	<%i++; %>
 		
 	</tr>
@@ -56,7 +60,7 @@ height : 50px;
 SEARCHING BY:
 <br>
 <select name="searchType">
-		<c:if test="${sessionScope.user.type != UserType.MANAGER}">
+		<c:if test="${sessionScope.user.role != Role.MANAGER}">
   			<option value="restName">Restorant Name</option>
 		</c:if>
 	  	<option value="orderPrice"> Order Price </option>
@@ -76,7 +80,7 @@ Sortiranje---------------------------> izaberi kriterijum
 <br>
 <select name="sortingCrit">
 		<option value="noSort">no Sort</option>
-		<c:if test="${sessionScope.user.type != UserType.MANAGER}">
+		<c:if test="${sessionScope.user.role != Role.MANAGER}">
   			<option value="restName">Restorant Name</option>
 		</c:if>
  		<option value="orderPrice"> Order Price</option>
@@ -94,7 +98,7 @@ ORDER???
 <br>
 <br>
 
-<c:if test="${sessionScope.user.type != UserType.MANAGER}">
+<c:if test="${sessionScope.user.role != Role.MANAGER}">
   			
 
 FILTERING Restorant TYPE

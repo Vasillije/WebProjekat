@@ -64,6 +64,7 @@ height : 50px;
 	
 	<td>Date JavaSkript</td>
 	<td>
+	
 		<input type="date"  name="dateBirth">
 	</td> 
 	

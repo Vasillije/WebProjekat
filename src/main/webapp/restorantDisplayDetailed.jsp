@@ -94,7 +94,6 @@ RESTORANT Articls:
 		<td>${articl.opis}</td>
 		<td>${articl.price}</td>
 		<td>${articl.image}</td>
-		<!-- <td><a href="AddArticalToBasket?idArtical=${articl.id}&nesto=0">Dodaj</a></td> -->
 		
 		<form action="AddArticalToBasket" method="GET"> 
 			<input type="hidden" name="idArtical" value="${articl.id}">

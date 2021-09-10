@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <style type="text/css">
 body
 {
 background-color: Bisque;
- background-image: url('image/food.jpg');
  background-repeat : no-repeat;
  background-size: 100% 100%;
  background-attachment: fixed;
@@ -60,31 +60,30 @@ height : 50px;
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="topnav">
-	<c:if test="${sessionScope.user.role != requestScope.ADMINISTRATOR}">
-		<a class="active" href="OrderDisplayServlet">orders</a>
-		<a href="RestorantDisplayServlet">restaurants</a>
-	</c:if>
-	
-	
-	<c:if test="${sessionScope.user.role == requestScope.ADMINISTRATOR}">
-		<a href="RegistrationMenagerServlet">register manager</a>
-		<a href="RestorantServlet">Create restaurants</a>
-		<a href="DisplayAllUsersServlet">Display all Users</a>
-	</c:if>
-	
-	
-	<c:if test="${sessionScope.user.role == requestScope.MANAGER}">
-		<a href="ArticalDisplayServlet">display articles</a>
-		<a href="CreateArticalServlet">create articles</a>		
-	</c:if>
-	<a href = "UserDisplayServlet"> Your profile</a>
-		
-	</div>
-	
-	
-	<% if (request.getAttribute("error") != null) { %>
-		<p style="color: red"><%=request.getAttribute("error")%></p>
-	<% } %>
+
+
+	<table>
+	<tr>
+		<td>User Id</td>
+		<td>Name</td>
+		<td>SurName</td>
+		<td>Sex</td>
+		<td>Date of birdth</td>
+		<td>Role </td>
+		<td>pointsCustomer</td>
+	</tr>
+
+	<c:forEach items="${requestScope.allUsers}" var="user">
+	<tr>
+		<td> ${user.id}</td>
+		<td> ${user.name}</td>
+		<td> ${user.surname}</td>
+		<td> ${user.birdth}</td>
+		<td> ${user.role}</td>
+		<td> ${user.pointsCustomer}</td>
+	</tr>
+	</c:forEach>
+</table>
+
 </body>
 </html>

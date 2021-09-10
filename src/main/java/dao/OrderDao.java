@@ -58,6 +58,9 @@ public class OrderDao extends dao<Order>{
 	public ArrayList<Order> findOrderByUserShipperId(int id){
 		ArrayList<Order> orders = new ArrayList<Order>();
 		for(Entity entity : AppContext.getAplicationContext().getOrders()) {
+			if(((Order)entity).getUserShipper() == null){
+				continue;
+			}
 			if(((Order)entity).getUserShipper().getId() == id) {
 				orders.add((Order)entity);
 			}

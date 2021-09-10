@@ -94,11 +94,11 @@ public class RestorantServlet extends HttpServlet {
 
 		String logo = request.getParameter("logo");
 
-		Part filePart = request.getPart("fileLogo");
-		String fileName = Paths.get(filePart.getName()).getFileName().toString();
-		InputStream fileContent = filePart.getInputStream();
-
-		System.out.println("|" + fileName + "|" + fileContent);
+//		Part filePart = request.getPart("fileLogo");
+//		String fileName = Paths.get(filePart.getName()).getFileName().toString();
+//		InputStream fileContent = filePart.getInputStream();
+//
+//		System.out.println("|" + fileName + "|" + fileContent);
 
 //    	File file = 
 //    			try(OutputStream outputStream = new FileOutputStream(file)){
@@ -117,7 +117,7 @@ public class RestorantServlet extends HttpServlet {
 		AppContext.getAplicationContext().getRestorants().add(resorant);
 		AppContext.getAplicationContext().save();
 
-		if (request.getParameter("restorantManager").equals("-1")) {
+		if (request.getParameter("manager").equals("-1")) {
 
 			request.setAttribute("restID", resorant.getId());
 
@@ -132,7 +132,7 @@ public class RestorantServlet extends HttpServlet {
 		UserDao userDao = new UserDao();
 		User userManager = userDao.findById(userManagerId);
 		userManager.setRestorantMnagaer(resorant);
-		RequestDispatcher disp = request.getRequestDispatcher("/HomeServlet");
+		RequestDispatcher disp = request.getRequestDispatcher("/index.jsp");
 		disp.forward(request, response);
 	}
 

@@ -39,5 +39,15 @@ public class UserDao extends dao<User>{
 		}
 		return noManagers;
 	}
+	public ArrayList<Entity> findAllUsersNotAdmin(){
+		ArrayList<Entity> noAdmins = new ArrayList<Entity>();
+		for(Entity entity : AppContext.getAplicationContext().getUsers()) {
+			User rUser = (User)entity;
+			if(rUser.getRole() != Role.ADMINISTRATOR) {
+				noAdmins.add(entity);
+			}
+		}
+		return noAdmins;
+	}
 
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Enums.Pol;
+import Enums.Role;
 import dao.UserDao;
 import model.AppContext;
 import model.DateConverse;
@@ -64,6 +65,7 @@ private static final long serialVersionUID = 1L;
     	String surname = request.getParameter("surname");
     	String sex = request.getParameter("gender");
     	String dateS = request.getParameter("dateBirth");
+    	user.setRole(Role.MANAGER);
     	
     	user.setUsername(username);
     	user.setPassword(pass);
@@ -74,17 +76,20 @@ private static final long serialVersionUID = 1L;
     	LocalDate dateLD = DateConverse.convertStringToLocalDate(dateS);
     	user.setBirdth(dateLD);
     	
-    	String restID = request.getParameter("restID");
-    	int restIDint = Integer.parseInt(restID);
-    	RestorantDao dao = new RestorantDao();
-    	Restorant r = dao.findById(restIDint);
-    	user.setRestorantMnagaer(r);
+//    	String restID = request.getParameter("restID");
+//    	int restIDint = Integer.parseInt(restID);
+//    	RestorantDao dao = new RestorantDao();
+//    	Restorant r = dao.findById(restIDint);
+//    	user.setRestorantMnagaer(r);
     	
     	AppContext.getAplicationContext().getUsers().add(user);
         AppContext.getAplicationContext().save();
+        request.setAttribute("CUSTOMER", Role.CUSTOMER);
+    	request.setAttribute("ADMINISTRATOR", Role.ADMINISTRATOR);
+    	request.setAttribute("SHIPPER", Role.SHIPPER);
         
         
-        RequestDispatcher disp = request.getRequestDispatcher("/HomeServlet");
+        RequestDispatcher disp = request.getRequestDispatcher("/index.jsp");
     	disp.forward(request, response);
 	}
 }

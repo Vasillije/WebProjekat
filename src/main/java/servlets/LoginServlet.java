@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Enums.Role;
 import dao.UserDao;
 import model.User;
 
@@ -30,6 +31,7 @@ public class LoginServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
     	RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
     	disp.forward(request, response);
     }
@@ -40,6 +42,10 @@ public class LoginServlet extends HttpServlet {
     	
     	UserDao userDao = new UserDao();
     	User user = userDao.findUserByUserPassword(username, pass);
+    	request.setAttribute("CUSTOMER", Role.CUSTOMER);
+    	request.setAttribute("ADMINISTRATOR", Role.ADMINISTRATOR);
+    	request.setAttribute("SHIPPER", Role.SHIPPER);
+    	
     	if(user == null) {	
     		request.setAttribute("error", "Username and password are not OK");
     		RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");

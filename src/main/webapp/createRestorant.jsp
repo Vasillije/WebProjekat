@@ -67,9 +67,8 @@ height : 50px;
 	</tr>
 	<tr>
 		<td>Logo</td>
-		<form action="RestorantServlet"  method="POST" enctype="multipart/form-data">
+		<form action="RestorantServlet"  method="POST" >
 		<td><input type="text" name="logo" /></td>
-		<td><input type="file" id="real-file"  name ="fileLogo" /></td>
 		</form>
 	
 	<tr>

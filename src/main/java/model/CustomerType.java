@@ -1,5 +1,7 @@
 package model;
 
+import Enums.Role;
+
 public class CustomerType extends Entity{
 	private String nameType;
 	private double discount;

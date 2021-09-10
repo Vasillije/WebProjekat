@@ -37,6 +37,9 @@ public class UserDisplayServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute("user");
+//		request.setAttribute("dateBirdth",  user.getBirdth());
 		RequestDispatcher disp = request.getRequestDispatcher("/userDisplay.jsp");
     	disp.forward(request, response);
 	}

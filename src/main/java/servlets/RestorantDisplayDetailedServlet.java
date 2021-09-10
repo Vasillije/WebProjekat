@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Enums.Role;
 import dao.ArticalDao;
 import dao.CommentDao;
 import dao.RestorantDao;
+import model.Comment;
 import model.Entity;
 import model.Restorant;
-import model.Comment;
 
 /**
  * Servlet implementation class RestorantDisplayDetailedServlet
@@ -41,6 +42,8 @@ public class RestorantDisplayDetailedServlet extends HttpServlet {
 			System.out.println("nes geknulo");
 			return;
 		}
+		Role role;
+		Role.ADMINISTRATOR.ordinal();
 		int idRest = Integer.parseInt(id);
 		System.out.println(idRest);
 		RestorantDao dao = new RestorantDao();

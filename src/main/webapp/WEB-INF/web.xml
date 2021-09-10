@@ -167,5 +167,15 @@
     <url-pattern>/OrderChangeByAnybodyGoodProjectServlet</url-pattern>
   </servlet-mapping>
   
+
+  <servlet>
+    <servlet-name>UserDisplayServlet</servlet-name>
+    <servlet-class>servlets.UserDisplayServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserDisplayServlet</servlet-name>
+    <url-pattern>/UserDisplayServlet</url-pattern>
+  </servlet-mapping>
+  
    
 </web-app>

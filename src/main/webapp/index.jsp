@@ -68,6 +68,7 @@ height : 50px;
 	<a href="CreateArticalServlet">create articles</a>
 	<a href="RegistrationMenagerServlet">register manager</a>
 	<a href="RestorantServlet">Create restaurants</a>
+	<a href = "UserDisplayServlet"> Your profile</a>
 		
 	</div>
 	

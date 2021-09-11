@@ -67,6 +67,15 @@ public class OrderDao extends dao<Order>{
 		}
 		return orders;
 	}
+	public ArrayList<Order> findOrderByNullUserShipper(int id){
+		ArrayList<Order> orders = new ArrayList<Order>();
+		for(Entity entity : AppContext.getAplicationContext().getOrders()) {
+			if(((Order)entity).getUserShipper() == null || ((Order)entity).getUserShipper().getId() == id){
+				orders.add(((Order)entity));
+			}
+		}
+		return orders;
+	}
 	
 	
 	public ArrayList<Entity> searchByParam(ArrayList<Entity> orders, String searchingBy , String searchingForFrom, String searchingForTo) {

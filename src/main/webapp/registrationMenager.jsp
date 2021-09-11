@@ -71,6 +71,20 @@ height : 50px;
 	</tr>
 	
 	
+	
+	<tr>
+	
+	<td>Type</td>
+	<td>
+		<select name="type">
+	  		<option value="SHIPPER">SHIPPER</option>
+	  		<option value="MANAGER">MANAGER</option>
+		</select>
+	</td> 
+	
+	</tr>
+	
+	
 	<tr><td><input type="submit" value="Login"></td></tr>
 	
 </table>

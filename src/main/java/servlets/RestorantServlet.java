@@ -18,6 +18,7 @@ import javax.servlet.http.Part;
 import Enums.Pol;
 import Enums.RestorantStatus;
 import Enums.RestorantType;
+import Enums.Role;
 import dao.UserDao;
 import model.Adress;
 import model.AppContext;
@@ -127,11 +128,16 @@ public class RestorantServlet extends HttpServlet {
 			return;
 		}
 
-		String value = request.getParameter("restorantManager");
+		String value = request.getParameter("manager");
 		int userManagerId = Integer.parseInt(value);
 		UserDao userDao = new UserDao();
 		User userManager = userDao.findById(userManagerId);
 		userManager.setRestorantMnagaer(resorant);
+
+		request.setAttribute("CUSTOMER", Role.CUSTOMER);
+		request.setAttribute("ADMINISTRATOR", Role.ADMINISTRATOR);
+		request.setAttribute("SHIPPER", Role.SHIPPER);
+		request.setAttribute("MANAGER", Role.MANAGER);
 		RequestDispatcher disp = request.getRequestDispatcher("/index.jsp");
 		disp.forward(request, response);
 	}

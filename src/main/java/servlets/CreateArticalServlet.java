@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import Enums.ArticalType;
 import Enums.Pol;
+import Enums.Role;
 import dao.ArticalDao;
 import dao.UserDao;
 import model.AppContext;
@@ -81,8 +82,13 @@ public class CreateArticalServlet extends HttpServlet {
     	AppContext.getAplicationContext().getArticals().add(articalA);
         AppContext.getAplicationContext().save();
         
+        request.setAttribute("CUSTOMER", Role.CUSTOMER);
+		request.setAttribute("ADMINISTRATOR", Role.ADMINISTRATOR);
+		request.setAttribute("SHIPPER", Role.SHIPPER);
+		request.setAttribute("MANAGER", Role.MANAGER);
         
-        RequestDispatcher disp = request.getRequestDispatcher("/HomeServlet");
+        
+        RequestDispatcher disp = request.getRequestDispatcher("/index.jsp");
     	disp.forward(request, response);
 	}
 

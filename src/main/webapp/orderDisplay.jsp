@@ -30,7 +30,7 @@ height : 50px;
 </div>
 
 <body>
-<form action="UserOrderDisplayServlet" method="POST">
+<form action="OrderDisplayServlet" method="POST">
 <table>
 	<tr>
 		<td>OrderNumber</td>
@@ -49,7 +49,31 @@ height : 50px;
 		<td>${order.cena}</td>
 		<td>${order.date}</td>
 		<td>${order.status}</td>
-		<td><a href="OrderChangeByAnybodyGoodProjectServlet?orderId=${order.id}">Cancel Order javascript</a></td>	
+		<td><a href="OrderChangeByAnybodyGoodProjectServlet?orderId=${order.id}">
+		<c:choose>
+			<c:when test="${order.status == 'PROCESSING'}">
+				<c:if test="${sessionScope.user.role == 'CUSTOMER'}">
+  					CANCEL
+				</c:if>
+				<c:if test="${sessionScope.user.role == 'MANAGER'}">
+  					ACCEPT
+				</c:if>
+			</c:when>
+			<c:when test="${order.status == 'INPREPARATION'}">
+				WAITITNG
+			</c:when>
+			<c:when test="${order.status == 'WAITING'}">
+				DELIVER
+			</c:when>
+			<c:when test="${order.status == 'INTRANSPORT'}">
+				DELIVERED
+			</c:when>
+			<c:when test="${order.status == 'CANCELED'}">
+				
+			</c:when>
+		</c:choose>
+		</a></td>
+		
 	 	<%i++; %>
 		
 	</tr>
@@ -64,7 +88,7 @@ SEARCHING BY:
   			<option value="restName">Restorant Name</option>
 		</c:if>
 	  	<option value="orderPrice"> Order Price </option>
- 		<option value="orderDate"> order Date</option>	  		
+ 		  		
 </select>
 <br>
 
@@ -89,7 +113,7 @@ Sortiranje---------------------------> izaberi kriterijum
 
 <br>
 <br>
-ORDER???
+ORDER
 <br>
 <select name="sortingOrder">
 	  	<option value="growing">growing</option>
@@ -102,7 +126,7 @@ ORDER???
   			
 
 FILTERING Restorant TYPE
-<select name="filteringType">
+<select name=filteringRestorantType>
 		<option value="noFilter">no Filter</option>
 	  	<c:forEach items="${requestScope.types}" var="type">
 		<option value= "${type}"> ${type} </option>
@@ -115,16 +139,14 @@ FILTERING Restorant TYPE
 <br>
 
 Order STATUS
-<select name="filteringOpen">
+<select name="filteringOrderStatus">
 		<option value="noFilter">no Filter</option>
 		<c:forEach items="${requestScope.status}" var="status">
 		<option value= "${status}"> ${status} </option>
-		
 		</c:forEach> 
-	  	 		
 </select>
 <br>
-
+<input type="submit" value="Login">
 
 </form>
 	<% if (request.getAttribute("error") != null) { %>

@@ -68,7 +68,7 @@ height : 50px;
 	
 	
 	<c:if test="${sessionScope.user.role == requestScope.ADMINISTRATOR}">
-		<a href="RegistrationMenagerServlet">register manager</a>
+		<a href="RegistrationMenagerServlet">register WORKER</a>
 		<a href="RestorantServlet">Create restaurants</a>
 		<a href="DisplayAllUsersServlet">Display all Users</a>
 	</c:if>
@@ -79,7 +79,7 @@ height : 50px;
 		<a href="CreateArticalServlet">create articles</a>		
 	</c:if>
 	<a href = "UserDisplayServlet"> Your profile</a>
-		
+	<a href = "login.jsp"> Log Out</a>	
 	</div>
 	
 	

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Enums.ArticalType;
+import Enums.Role;
 import dao.ArticalDao;
 import model.Artical;
 
@@ -54,9 +55,13 @@ public class ArticalUpdateServlet extends HttpServlet {
 		artical.setOpis(request.getParameter("description"));
 		artical.setAmount(Double.parseDouble(request.getParameter("amount")));
 		
-		RequestDispatcher disp = request.getRequestDispatcher("/HomeServlet");
-    	disp.forward(request, response);
+		request.setAttribute("CUSTOMER", Role.CUSTOMER);
+    	request.setAttribute("ADMINISTRATOR", Role.ADMINISTRATOR);
+    	request.setAttribute("SHIPPER", Role.SHIPPER);
+    	request.setAttribute("MANAGER", Role.MANAGER);
 		
+		RequestDispatcher disp = request.getRequestDispatcher("index.jsp");
+    	disp.forward(request, response);
 	}
 
 }

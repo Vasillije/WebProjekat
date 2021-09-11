@@ -86,7 +86,7 @@ height : 50px;
 	
 	
 	
-	<tr><td><input type="submit" value="Login"></td></tr>
+	<tr><td><input type="submit" value="Create"></td></tr>
 	
 </table>
 </form>

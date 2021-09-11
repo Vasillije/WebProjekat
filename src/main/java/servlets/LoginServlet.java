@@ -45,6 +45,7 @@ public class LoginServlet extends HttpServlet {
     	request.setAttribute("CUSTOMER", Role.CUSTOMER);
     	request.setAttribute("ADMINISTRATOR", Role.ADMINISTRATOR);
     	request.setAttribute("SHIPPER", Role.SHIPPER);
+    	request.setAttribute("MANAGER", Role.MANAGER);
     	
     	if(user == null) {	
     		request.setAttribute("error", "Username and password are not OK");

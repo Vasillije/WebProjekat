@@ -36,7 +36,7 @@ height : 50px;
 		<td><input type="text" name ="username" value = "${sessionScope.user.username}"/></td>
 	</tr>
 	<tr>
-		<td>Password</td>
+		<td>Password </td>
 		<td><input type="password" name ="password" value = "${sessionScope.user.password}" /></td>
 	</tr>
 	<tr>
@@ -65,7 +65,7 @@ height : 50px;
 	<td>Date JavaSkript</td>
 	<td>
 	
-		<input type="date"  name="dateBirth">
+		<input type="date"  name="dateBirth" value="${requestScope.date}">
 	</td> 
 	
 	</tr>
